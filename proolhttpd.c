@@ -43,7 +43,7 @@ struct stat struktura;
 FILE *fp;
 char buf2[BUFLEN];
 
-    printf("%s Test echoserver started\n", ptime());
+    printf("%s proolhttpd started\n", ptime());
 
     listener = socket(AF_INET, SOCK_STREAM, 0);
     if(listener < 0)
@@ -57,7 +57,7 @@ char buf2[BUFLEN];
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
     if(bind(listener, (struct sockaddr *)&addr, sizeof(addr)) < 0)
     {
-        perror("echoserver bind");
+        perror("proolhttpd bind");
         exit(2);
     }
 
