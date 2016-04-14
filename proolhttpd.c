@@ -14,7 +14,6 @@ some socket i/o examples from https://rsdn.ru/article/unix/sockets.xml
 
 #include "proolhttpd.h"
 
-#define PORT 2222
 #define BUFLEN 2048
 
 #define INDEX "index.html"
@@ -32,6 +31,16 @@ char *ptime(void)
 	return tmstr;
 	}
 
+void log_(char *str)
+{
+FILE *f = fopen("proolhttpd.log","a");
+if (f)
+	{
+	fprintf(f, "%s %s\n", ptime(), str);
+	fclose(f);
+	}
+}
+
 int main()
 {
 int sock, listener;
@@ -44,6 +53,7 @@ FILE *fp;
 char buf2[BUFLEN];
 
     printf("%s proolhttpd started\n", ptime());
+    log_("proolhttpd started");
 
     listener = socket(AF_INET, SOCK_STREAM, 0);
     if(listener < 0)
@@ -78,7 +88,7 @@ char buf2[BUFLEN];
             bytes_read = recv(sock, buf, BUFLEN, 0);
             if(bytes_read <= 0) break;
 	    printf("%s GET\n", ptime());
-	    //printf("Input %s", buf);
+	    log_(buf);
 	    if (!memcmp(buf,"GET ",4))
 		{
 		if (stat(INDEX, &struktura))

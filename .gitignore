@@ -31,3 +31,6 @@ proolhttpd
 
 # Debug files
 *.dSYM/
+
+# prool:
+*.log
